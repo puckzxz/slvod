@@ -1,28 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
+using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace slvod
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            if (Properties.Settings.Default.PlayerPath != string.Empty)
+            {
+                lblPlayerPath.Content = Properties.Settings.Default.PlayerPath;
+            }
+            else
+            {
+                lblPlayerPath.Content = "Player path not specified!";
+            }
+        }
+
+        private void btnChangePlayerPath_Click(object sender, RoutedEventArgs e)
+        {
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+            };
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                lblPlayerPath.Content = dialog.FileName;
+                Properties.Settings.Default.PlayerPath = dialog.FileName;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void btnStartVod_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtboxVodURL.Text) & Uri.IsWellFormedUriString(txtboxVodURL.Text, UriKind.Absolute) & txtboxVodURL.Text.Contains("twitch.tv"))
+            {
+                Process player = new Process();
+                player.StartInfo.CreateNoWindow = true;
+                player.StartInfo.UseShellExecute = false;
+                player.StartInfo.FileName = "streamlink.exe";
+                player.StartInfo.Arguments = $@"{txtboxVodURL.Text} best --player-passthrough hls --player ""{Properties.Settings.Default.PlayerPath}""";
+                player.Start();
+            }
+            else
+            {
+                MessageBox.Show("You must specify a Twitch VOD URL");
+            }
         }
     }
 }

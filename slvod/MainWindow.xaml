@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:slvod"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="14"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="slvod" Height="300" Width="500" ResizeMode="NoResize">
     <Grid>
-        
+        <TextBox x:Name="txtboxVodURL" HorizontalAlignment="Center" materialDesign:HintAssist.Hint="VOD URL" Height="25" Margin="0,0,0,80" TextWrapping="Wrap" VerticalAlignment="Center" Width="300"/>
+        <Button x:Name="btnStartVod" Content="Start Player" HorizontalAlignment="Right" Margin="0,0,20,20" VerticalAlignment="Bottom" Height="30" Click="btnStartVod_Click"/>
+        <Button x:Name="btnChangePlayerPath" Style="{StaticResource MaterialDesignFlatButton}" Content="Set Player Path" HorizontalAlignment="Left" Margin="20,0,0,20" VerticalAlignment="Bottom" Height="30" Click="btnChangePlayerPath_Click"/>
+        <Label x:Name="lblPlayerPath" Content="" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Center"/>
     </Grid>
 </Window>
