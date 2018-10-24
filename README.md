@@ -21,6 +21,7 @@ You will need
 
 Open `slvod.sln` and build in `Release` mode
 
+### Running
 Once you build the application and start it, you will be greeted with this
 
 ![slvod](https://i.imgur.com/8wnMWrd.png)
