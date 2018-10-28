@@ -18,6 +18,7 @@ namespace slvod
             {
                 lblPlayerPath.Content = "Player path not specified!";
             }
+            txtboxVodURL.Text = Properties.Settings.Default.PreviousVOD;
         }
 
         private void btnChangePlayerPath_Click(object sender, RoutedEventArgs e)
@@ -38,6 +39,11 @@ namespace slvod
         {
             if (!string.IsNullOrWhiteSpace(txtboxVodURL.Text) & Uri.IsWellFormedUriString(txtboxVodURL.Text, UriKind.Absolute) & txtboxVodURL.Text.Contains("twitch.tv"))
             {
+                // Save our VOD URL
+                Properties.Settings.Default.PreviousVOD = txtboxVodURL.Text;
+                Properties.Settings.Default.Save();
+
+                // Start our player
                 Process player = new Process();
                 player.StartInfo.CreateNoWindow = true;
                 player.StartInfo.UseShellExecute = false;

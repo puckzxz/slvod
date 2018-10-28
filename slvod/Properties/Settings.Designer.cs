@@ -34,5 +34,17 @@ namespace slvod.Properties {
                 this["PlayerPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PreviousVOD {
+            get {
+                return ((string)(this["PreviousVOD"]));
+            }
+            set {
+                this["PreviousVOD"] = value;
+            }
+        }
     }
 }
